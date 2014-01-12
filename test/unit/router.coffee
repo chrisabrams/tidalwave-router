@@ -11,7 +11,6 @@ describe 'Router - Unit', ->
     expect(router.findMatch).to.be.a 'function'
     expect(router.match).to.be.a 'function'
     expect(router.routes).to.have.length 0
-    expect(router.destroy).to.be.a 'function'
 
     done()
 
