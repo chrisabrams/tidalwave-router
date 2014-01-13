@@ -2,7 +2,7 @@ Router = require '../../src/router/index'
 
 describe 'Router - Unit', ->
 
-  it 'should be able to initialize', (done) ->
+  it 'should initialize', (done) ->
 
     router = new Router
 
@@ -14,7 +14,7 @@ describe 'Router - Unit', ->
 
     done()
 
-  it 'should be able to find a matching route', (done) ->
+  it 'should find a matching route', (done) ->
 
     router = new Router
 
@@ -25,7 +25,7 @@ describe 'Router - Unit', ->
 
     done()
 
-  it 'should not be able to find a matching route', (done) ->
+  it 'should find a matching route', (done) ->
 
     router = new Router
 

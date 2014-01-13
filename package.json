@@ -1,6 +1,6 @@
 {
   "name": "tidalwave-router",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Tidalwave Router",
   "author": {
     "name": "Chris Abrams",
@@ -22,7 +22,9 @@
     "chai": "1.8.1",
     "coffee-script": "1.6.3",
     "mocha": "1.16.1",
-    "sinon-chai": "2.4.0"
+    "sinon-chai": "2.4.0",
+    "tidalwave": "*",
+    "websocket": "1.0.8"
   },
   "licenses": [
     {

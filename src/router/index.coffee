@@ -4,13 +4,25 @@ util  = require 'util'
 
 module.exports = class TidalWaveRouter
 
-  constructor: ->
+  constructor: (connection, request) ->
 
     @routes = new Array
 
+    if connection
+      @connection = connection
+
+      connection.on 'message', (message) =>
+
+        @findAndExecute message, connection, request
+
     @
 
-  findAndExecute: (req, msg, conn) ->
+  dispatch: (route, pkg) ->
+
+    if @connection
+      @connection.sendUTF JSON.stringify({route: route, pkg: pkg})
+
+  findAndExecute: (msg, conn, req) ->
 
     if msg.type is 'utf8'
 
@@ -19,11 +31,13 @@ module.exports = class TidalWaveRouter
       match = @findMatch(route)
 
       if route and match
-        util.debug "Route matched: #{match.path}"
 
-        @emitter.emit 'dispatcher:dispatch', match
+        util.debug "Route matched: #{match.pattern}"
 
-        match.listener.call @server, req, msg, conn
+        if @emitter
+          @emitter.emit 'route:matched', match
+
+        match.listener obj.pkg, conn, req
 
   findMatch: (path) ->
 
@@ -52,12 +66,4 @@ module.exports = class TidalWaveRouter
     route = new Route path,cb
     @routes.push route
 
-  onUse: (server) ->
-
-    server.on 'request', (request) =>
-      
-      connection = request.accept 'echo-protocol', request.origin
-
-      connection.on 'message', (message) =>
-
-        @findAndExecute.call @, request, message, connection
+  onUse: () ->
