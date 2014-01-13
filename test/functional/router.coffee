@@ -1,4 +1,3 @@
-Client = require('websocket').client
 Router = require '../../src/router/index'
 Server = require 'tidalwave'
 
@@ -10,7 +9,6 @@ describe 'Router - Functional', ->
       port: 8000
 
     router = new Router
-    #server.use router
 
     router.on 'yo', ->
 
